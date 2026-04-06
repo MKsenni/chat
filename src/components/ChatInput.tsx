@@ -47,7 +47,7 @@ const ChatInput = memo(function ChatInput({ onSend }: ChatInputProps) {
         <textarea
           ref={inputRef}
           id="chat-input"
-          className="flex-1 resize-none rounded-xl border border-border bg-surface px-3 py-2 text-sm text-text-primary placeholder:text-text-muted outline-none"
+          className="flex-1 resize-none rounded-xl border border-border bg-surface px-3 py-2 text-base sm:text-sm text-text-primary placeholder:text-text-muted outline-none"
           placeholder="Введите сообщение..."
           value={value}
           onChange={handleChange}
