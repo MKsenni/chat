@@ -36,7 +36,7 @@ const MessageBubble = memo(function MessageBubble({
         )}
       >
         <span className="px-1 text-xs text-text-secondary">
-          {isUser ? 'Вы' : 'Бот'}
+          {isUser ? 'Вы' : 'Друг'}
         </span>
 
         <div

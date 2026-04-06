@@ -9,7 +9,7 @@ const TypingIndicator = memo(function TypingIndicator() {
     <div
       className="flex items-end gap-2 animate-fade-in"
       role="status"
-      aria-label="Бот печатает"
+      aria-label="Друг печатает"
     >
       <Avatar author={MessageAuthor.Bot} />
       

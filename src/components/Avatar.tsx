@@ -12,7 +12,7 @@ const AVATAR_CONFIG = {
     className: 'bg-green-700 text-text-on-dark',
   },
   [MessageAuthor.Bot]: {
-    initials: 'Б',
+    initials: 'Д',
     className: 'bg-green-300 text-green-900',
   },
 } as const;
@@ -28,7 +28,7 @@ const Avatar = memo(function Avatar({ author }: AvatarProps) {
       )}
       role="img"
       aria-label={
-        author === MessageAuthor.User ? 'Ваш аватар' : 'Аватар бота'
+        author === MessageAuthor.User ? 'Ваш аватар' : 'Аватар друга'
       }
     >
       {initials}
