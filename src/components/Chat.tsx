@@ -26,12 +26,12 @@ const Chat = memo(function Chat() {
   return (
     <section className="flex h-svh flex-col bg-surface-white sm:mx-auto sm:my-4 sm:h-[calc(100svh-2rem)] sm:max-w-2xl sm:rounded-2xl sm:border sm:border-border sm:shadow-md overflow-auto">
       <header className="flex items-center gap-3 border-b border-border px-4 py-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-green-300 text-sm font-medium text-green-900">
+        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-green-300 text-base font-medium text-green-900">
           Д
         </div>
 
         <div>
-          <h1 className="text-sm font-semibold text-text-primary">
+          <h1 className="text-base font-semibold text-text-primary">
             Друг
           </h1>
 

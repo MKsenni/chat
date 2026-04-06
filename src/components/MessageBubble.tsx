@@ -37,7 +37,7 @@ const MessageBubble = memo(function MessageBubble({
       >
         <div
           className={cn(
-            'rounded-2xl px-3 py-2 text-sm leading-relaxed shadow-sm',
+            'rounded-2xl px-3 py-2 text-base leading-relaxed shadow-sm',
             isUser
               ? 'rounded-tr-sm bg-bubble-user text-text-on-dark'
               : 'rounded-tl-sm bg-bubble-bot text-text-primary',
