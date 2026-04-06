@@ -1,0 +1,181 @@
+---
+alwaysApply: true
+---
+
+# Project rules
+
+## Core Principles
+
+### 1. **CSS Variables and Design Tokens**
+
+- **ALWAYS** use CSS variables from `src/index.css`
+- For colors: Use `var(--ui-size-)`, `var(--icon-accent)`, `var(--text-primary)`, etc.
+- For typography: Use `var(--text-xs)`, `var(--text-xm)`, `var(--text-base)`, `var(--font-medium)`, etc.
+- For shadows: Use `var(--shadow-md)`
+- To conditionally render styling use classnames package `import cn from 'classnames'`
+- Do NOT add hover and focus styling!
+
+### 2. **Semantic Markup & Accessibility (CRITICAL)**
+
+- Use semantic HTML elements: `<header>`, `<nav>`, `<section>`, `<article>`, `<aside>`, `<footer>`
+- Prefer `<article>` instead of `<main>` for component-level content wrappers in generated components.
+- Proper heading hierarchy: h1 → h2 → h3
+- ARIA labels for interactive elements: `aria-label`, `aria-describedby`, `role`
+- Use `<button>` for actions, not `<div>` with onClick
+- Form labels must be associated with inputs: `<label htmlFor="id">` + `<input id="id">`
+- Images must have `alt` attributes
+- Focus management for keyboard navigation
+- Color contrast considerations (use design system colors)
+
+### 3. **Navigation Links**
+
+- Use `<a>` tags only for external links with `target="_blank" rel="noopener noreferrer"`
+
+### 4. **React Optimization & Memoization**
+
+- Use `React.memo()` for component memoization
+- Use `useCallback()` for event handlers passed as props
+- Use `useMemo()` for expensive calculations and computed values
+- Extract static data to custom hooks (e.g., `useData()`)
+- Use `React.useCallback` for functions passed to child components
+
+### 5. **Event Handlers & Callbacks**
+
+- **ALWAYS** provide predefined callback stubs for interactive elements
+- Button callbacks: `const handleClick = useCallback(() => { logger.info('Button clicked'); }, [])`
+- Input callbacks: `const handleChange = useCallback((value: string) => { logger.debug({ value }, 'Input changed'); }, [])`
+- Form submissions: `const handleSubmit = useCallback((e: React.FormEvent) => { e.preventDefault(); logger.info('Form submitted'); }, [])`
+
+### 6. **List Data Management (CRITICAL)**
+
+- **IF** design shows repeated elements with same layout but different data/styling colors/icons:
+  - Extract data to a variable (e.g., `const items = [...]` or custom hook)
+  - Use `.map()` to render list items
+  - Provide proper `key` prop for each item
+  - Example:
+
+    ```tsx
+    const items = [
+      { id: 1, title: 'Item 1', description: 'Description 1' },
+      { id: 2, title: 'Item 2', description: 'Description 2' }
+    ];
+    return (
+      <ul>
+        {items.map(item => (
+          <li key={item.id}>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </li>
+        ))}
+      </ul>
+    );
+    ```
+
+### 7. **CSS Modules Styling**
+
+- Use camelCase for CSS class names
+- Responsive design with CSS Grid/Flexbox
+- Use 2-space indentation
+- Prefer CSS Grid for layout, Flexbox for alignment
+
+### 8. **Component Structure Template**
+
+#### Internal Component Structure Order (CRITICAL)
+
+Внутри тела компонента код должен располагаться строго в следующем порядке:
+
+1. **Library hooks** — хуки из библиотек (react-i18next, react-hook-form, etc.)
+   ```tsx
+   const { t } = useTranslation('componentName');
+   const { register, handleSubmit } = useForm();
+   ```
+
+2. **Store hooks** — получение данных из стора (Zustand, Redux)
+   ```tsx
+   const { slides, currentSlide } = useSlideStore();
+   const user = useUserStore(state => state.user);
+   ```
+
+3. **Custom hooks** — собственные хуки приложения
+   ```tsx
+   const { data, isLoading } = useGetLayouts();
+   const { theme } = useTheme();
+   ```
+
+4. **Local variables** — простые вычисления без хуков
+   ```tsx
+   const isDisabled = !value || isLoading;
+   const fullName = `${firstName} ${lastName}`;
+   ```
+
+5. **Refs** — создание рефов
+   ```tsx
+   const containerRef = useRef<HTMLDivElement>(null);
+   const inputRef = useRef<HTMLInputElement>(null);
+   ```
+
+6. **State** — локальное состояние компонента
+   ```tsx
+   const [isOpen, setIsOpen] = useState(false);
+   const [value, setValue] = useState('');
+   ```
+
+7. **Derived data (useMemo)** — вычисляемые данные
+   ```tsx
+   const filteredItems = useMemo(() => items.filter(...), [items]);
+   ```
+
+8. **Callbacks (useCallback)** — обработчики событий
+   ```tsx
+   const handleClick = useCallback(() => {...}, []);
+   ```
+
+9. **Effects (useEffect)** — побочные эффекты
+   ```tsx
+   useEffect(() => {...}, [deps]);
+   ```
+
+10. **Early returns** — условные возвраты перед рендером
+    ```tsx
+    if (isLoading) return <Spinner />;
+    if (error) return <ErrorMessage error={error} />;
+    if (!data) return null;
+    ```
+
+11. **Render** — возврат JSX
+    ```tsx
+    return (<section>...</section>);
+    ```
+
+### 9. **Acceptable Third-Party Libraries**
+
+- For complex UI: `react-virtualized`, `react-window` (for large lists)
+- For animations: `framer-motion`, `react-spring`
+- For forms: `react-hook-form` (lightweight)
+- For date/time: `date-fns` (over moment.js)
+- For tooltips: `react-tooltip`
+- Keep dependencies minimal and justified
+
+### 10. **Development Guidelines**
+
+- Generate dummy/mock data for lists and dynamic content
+- Export SVG icons from Figma and wrap in React components
+- Ensure responsive design (mobile-first approach)
+- Using enams for enumerables values and create type by this enuns
+- Use TypeScript interfaces for props
+- Add proper error boundaries for complex components
+- Test accessibility with screen readers in mind
+- Always place import statements at the beginning of the file.
+
+## Checklist Before Delivery
+
+- [ ] All colors use CSS variables from `src/index.css`
+- [ ] Typography uses design system variables
+- [ ] Semantic HTML structure implemented (prefer `<article>` over `<main>`)
+- [ ] ARIA labels and accessibility attributes added (translated)
+- [ ] Event handlers implemented with `useCallback`
+- [ ] Repeated elements extracted to data arrays and mapped
+- [ ] Component wrapped with `React.memo`
+- [ ] Component internal structure follows the defined order (library hooks → store → custom hooks → local variables → refs → state → memo → callbacks → effects → early returns → render)
+- [ ] Responsive design implemented
+- [ ] TypeScript interfaces defined for props
