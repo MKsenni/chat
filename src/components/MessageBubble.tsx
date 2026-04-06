@@ -35,10 +35,6 @@ const MessageBubble = memo(function MessageBubble({
           isUser ? 'items-end' : 'items-start',
         )}
       >
-        <span className="px-1 text-xs text-text-secondary">
-          {isUser ? 'Вы' : 'Друг'}
-        </span>
-
         <div
           className={cn(
             'rounded-2xl px-3 py-2 text-sm leading-relaxed shadow-sm',

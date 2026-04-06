@@ -49,11 +49,11 @@ const MessageStatusIndicator = memo(function MessageStatusIndicator({
 
         <button
           type="button"
-          className="text-xs font-medium text-error underline"
+          className="text-xs font-medium text-error"
           onClick={handleRetry}
-          aria-label="Повторить отправку"
+          aria-label="Повторить"
         >
-          Повторить отправку
+          Повторить
         </button>
       </span>
     );
